@@ -122,6 +122,34 @@ const Navbar = () => {
   );
 };
 
+const QuickAccess = () => {
+  const links = [
+    { name: "Khóa học", to: "/khoahoc", icon: "📚" },
+    { name: "Hotline", to: "/hotline", icon: "📞" },
+    { name: "Feedback", to: "/feedback", icon: "⭐" },
+    { name: "FAQ", to: "/faq", icon: "❓" },
+    { name: "Blog", to: "/blog", icon: "📝" },
+    { name: "Giảng viên", to: "/giangvien", icon: "👨‍🏫" },
+  ];
+
+  return (
+    <div className="relative z-20 pt-28 pb-2 px-6 overflow-x-auto no-scrollbar lg:hidden">
+      <div className="flex items-center gap-2 pb-2">
+        {links.map((link) => (
+          <Link 
+            key={link.to} 
+            to={link.to}
+            className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/40 backdrop-blur-xl border border-white/50 text-foreground font-black text-[10px] uppercase tracking-wider transition-all whitespace-nowrap shadow-xl active:scale-95"
+          >
+            <span className="text-sm">{link.icon}</span>
+            {link.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Hero = () => {
   const navigate = useNavigate();
 
@@ -1994,6 +2022,7 @@ export default function App() {
         <FloatingElements />
         
         <Navbar />
+        <QuickAccess />
 
         <div className="relative z-10">
           <AnimatePresence mode="wait">
