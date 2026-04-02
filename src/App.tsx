@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useNavigate, useLocation, useSearchParams, useParams } from 'react-router-dom';
 import { Facebook, MessageCircle, Play, Heart, Sparkles, Wind, Moon, Sun, ChevronRight, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -88,10 +88,10 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden lg:flex items-center gap-8 font-black text-sm uppercase tracking-widest">
-          {['Trang chủ', 'Khóa học', 'Giảng viên', 'Giới thiệu', 'Blog'].map((item, i) => (
+          {['Trang chủ', 'Khóa học', 'Giảng viên', 'Feedback', 'Giới thiệu', 'Blog'].map((item, i) => (
             <Link 
               key={item}
-              to={i === 0 ? "/" : i === 1 ? "/khoahoc" : i === 2 ? "/giangvien" : i === 3 ? "/gioithieu" : "/blog"} 
+              to={i === 0 ? "/" : i === 1 ? "/khoahoc" : i === 2 ? "/giangvien" : i === 3 ? "/feedback" : i === 4 ? "/gioithieu" : "/blog"} 
               className="text-foreground/70 hover:text-primary transition-colors relative group"
             >
               {item}
@@ -691,6 +691,7 @@ const Footer = () => {
             <li><Link to="/" className="hover:text-primary transition-colors">Trang chủ</Link></li>
             <li><Link to="/gioithieu" className="hover:text-primary transition-colors">Về chúng tôi</Link></li>
             <li><Link to="/giangvien" className="hover:text-primary transition-colors">Đội ngũ giảng viên</Link></li>
+            <li><Link to="/feedback" className="hover:text-primary transition-colors">Feedback học viên</Link></li>
             <li><Link to="/khoahoc" className="hover:text-primary transition-colors">Khóa học</Link></li>
             <li><Link to="/blog" className="hover:text-primary transition-colors">Blog Tâm An</Link></li>
           </ul>
@@ -754,7 +755,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
             className="rounded-[4rem] overflow-hidden shadow-2xl border-8 border-white/30"
           >
-            <img src="https://picsum.photos/seed/about/800/600" alt="About Nhịp Tâm An" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+            <img src="https://i.imgur.com/oDRqAwy.png" alt="About Nhịp Tâm An" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
           </motion.div>
           <div className="space-y-10">
             <motion.div 
@@ -915,6 +916,22 @@ const CoursesPage = () => {
 };
 
 const HotlinePage = () => {
+  const [isMessaging, setIsMessaging] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [isSent, setIsSent] = React.useState(false);
+
+  const handleSend = () => {
+    if (message.trim()) {
+      // In a real app, this would send to a backend
+      setIsSent(true);
+      setMessage("");
+      setTimeout(() => {
+        setIsSent(false);
+        setIsMessaging(false);
+      }, 3000);
+    }
+  };
+
   return (
     <PageWrapper>
       <section className="relative z-10 px-6 py-32 max-w-7xl mx-auto text-center">
@@ -959,36 +976,197 @@ const HotlinePage = () => {
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-8">
-          <motion.a 
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(var(--primary), 0.3)" }}
-            whileTap={{ scale: 0.95 }}
-            href="tel:1900xxxx" 
-            className="bg-primary text-white px-16 py-6 rounded-full text-2xl font-black shadow-2xl transition-all flex items-center justify-center gap-5"
-          >
-            <span>📞</span> Gọi ngay chuyên gia
-          </motion.a>
-          <motion.button 
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.2)" }}
-            whileTap={{ scale: 0.95 }}
-            className="liquid-glass px-16 py-6 rounded-full text-2xl font-black text-foreground border-2 border-primary/30 shadow-xl flex items-center justify-center gap-5 cursor-pointer"
-          >
-            <span>💬</span> Nhắn tin ẩn danh
-          </motion.button>
+        <div className="flex flex-col items-center gap-8">
+          <AnimatePresence mode="wait">
+            {!isMessaging ? (
+              <motion.div 
+                key="buttons"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="flex flex-col sm:flex-row justify-center gap-8 w-full"
+              >
+                <motion.a 
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(var(--primary), 0.3)" }}
+                  whileTap={{ scale: 0.95 }}
+                  href="tel:1900xxxx" 
+                  className="bg-primary text-white px-16 py-6 rounded-full text-2xl font-black shadow-2xl transition-all flex items-center justify-center gap-5"
+                >
+                  <span>📞</span> Gọi ngay chuyên gia
+                </motion.a>
+                <motion.button 
+                  onClick={() => setIsMessaging(true)}
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.2)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="liquid-glass px-16 py-6 rounded-full text-2xl font-black text-foreground border-2 border-primary/30 shadow-xl flex items-center justify-center gap-5 cursor-pointer"
+                >
+                  <span>💬</span> Nhắn tin ẩn danh
+                </motion.button>
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="form"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="w-full max-w-2xl liquid-glass p-8 md:p-12 rounded-[3rem] border-2 border-primary/20 shadow-2xl"
+              >
+                {isSent ? (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="py-10"
+                  >
+                    <div className="text-6xl mb-6">✨</div>
+                    <h3 className="text-3xl font-black text-foreground mb-4">Cảm ơn bạn đã chia sẻ!</h3>
+                    <p className="text-xl text-muted-foreground font-bold">Thông điệp của bạn đã được gửi đi một cách an toàn và ẩn danh.</p>
+                  </motion.div>
+                ) : (
+                  <div className="space-y-8">
+                    <div className="text-left">
+                      <h3 className="text-3xl font-black text-foreground mb-2">Lời nhắn ẩn danh</h3>
+                      <p className="text-muted-foreground font-bold">Mọi chia sẻ của bạn đều được bảo mật tuyệt đối.</p>
+                    </div>
+                    <textarea 
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Hãy viết những gì bạn đang cảm thấy ở đây..."
+                      className="w-full h-48 bg-white/5 border-2 border-primary/10 rounded-3xl p-6 text-xl font-bold text-foreground focus:border-primary/50 outline-none transition-all resize-none"
+                    />
+                    <div className="flex gap-4">
+                      <button 
+                        onClick={() => setIsMessaging(false)}
+                        className="flex-1 py-5 border-2 border-primary/30 text-primary rounded-2xl font-black text-xl"
+                      >
+                        Hủy bỏ
+                      </button>
+                      <button 
+                        onClick={handleSend}
+                        disabled={!message.trim()}
+                        className={`flex-1 py-5 rounded-2xl font-black text-xl shadow-xl transition-all ${
+                          message.trim() ? 'bg-primary text-white' : 'bg-muted text-muted-foreground cursor-not-allowed'
+                        }`}
+                      >
+                        Gửi đi 🚀
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     </PageWrapper>
   );
 };
 
+const blogPosts = [
+  { 
+    id: "kiem-soat-nong-gian",
+    title: "5 cách kiểm soát cơn nóng giận cho sinh viên", 
+    img: "https://i.imgur.com/uUSqXrv.png", 
+    date: "01/04/2026",
+    excerpt: "Nóng giận là bản năng, kiểm soát là bản lĩnh. Cùng tìm hiểu cách làm chủ cảm xúc trong môi trường đại học.",
+    content: `
+      <p>Nóng giận là một cảm xúc tự nhiên của con người, nhưng nếu không được kiểm soát, nó có thể gây ra những hậu quả đáng tiếc trong các mối quan hệ và học tập. Đối với sinh viên, áp lực từ thi cử, bạn bè và gia đình thường là ngòi nổ cho những cơn giận bộc phát.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">1. Quy tắc 10 giây</h3>
+      <p>Khi cảm thấy cơn giận đang dâng trào, hãy dừng lại và đếm chậm từ 1 đến 10. Khoảng thời gian ngắn này giúp não bộ chuyển từ phản ứng bản năng sang suy nghĩ lý trí.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">2. Hít thở sâu</h3>
+      <p>Hít vào thật sâu bằng mũi và thở ra từ từ bằng miệng. Việc này giúp làm dịu hệ thần kinh và giảm nhịp tim đang đập nhanh do tức giận.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">3. Rời khỏi hiện trường</h3>
+      <p>Nếu cuộc tranh luận đang trở nên quá căng thẳng, hãy xin phép rời đi một lát. Một chút không gian riêng sẽ giúp bạn bình tĩnh lại trước khi tiếp tục giải quyết vấn đề.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">4. Viết ra cảm xúc</h3>
+      <p>Thay vì nói ra những lời gây tổn thương, hãy thử viết tất cả những gì bạn đang nghĩ vào một tờ giấy hoặc ghi chú trên điện thoại. Đây là cách giải tỏa năng lượng tiêu cực rất hiệu quả.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">5. Tìm kiếm sự thấu cảm</h3>
+      <p>Hãy thử đặt mình vào vị trí của người khác để hiểu tại sao họ lại hành động như vậy. Sự thấu cảm là liều thuốc giải độc tốt nhất cho cơn giận.</p>
+    `
+  },
+  { 
+    id: "ap-luc-thi-cu",
+    title: "Làm gì khi áp lực thi cử quá lớn?", 
+    img: "https://i.imgur.com/1Vy7PiL.png", 
+    date: "30/03/2026",
+    excerpt: "Áp lực thi cử là điều không thể tránh khỏi, nhưng bạn hoàn toàn có thể vượt qua nó một cách nhẹ nhàng hơn.",
+    content: `
+      <p>Mùa thi cử luôn là giai đoạn căng thẳng nhất đối với mọi sinh viên. Những đêm thức trắng, những tập tài liệu dày cộp và kỳ vọng từ gia đình có thể tạo nên một áp lực khổng lồ.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Lập kế hoạch học tập khoa học</h3>
+      <p>Thay vì học dồn vào những ngày cuối, hãy chia nhỏ khối lượng kiến thức và học đều đặn mỗi ngày. Một kế hoạch rõ ràng sẽ giúp bạn cảm thấy mọi thứ đang trong tầm kiểm soát.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Đảm bảo giấc ngủ</h3>
+      <p>Nhiều bạn nghĩ rằng thức đêm sẽ học được nhiều hơn, nhưng thực tế não bộ cần nghỉ ngơi để ghi nhớ thông tin. Hãy đảm bảo ngủ đủ ít nhất 6-7 tiếng mỗi ngày.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Vận động nhẹ nhàng</h3>
+      <p>Dành 15-30 phút mỗi ngày để đi bộ hoặc tập thể dục nhẹ. Vận động giúp cơ thể tiết ra endorphin - hormone hạnh phúc, giúp giảm căng thẳng hiệu quả.</p>
+    `
+  },
+  { 
+    id: "noi-chuyen-voi-bo-me",
+    title: "Cách nói chuyện với bố mẹ khi không được thấu hiểu", 
+    img: "https://i.imgur.com/4at66Qc.png", 
+    date: "28/03/2026",
+    excerpt: "Khoảng cách thế hệ đôi khi khiến việc giao tiếp trở nên khó khăn. Hãy tìm cách để tiếng nói của bạn được lắng nghe.",
+    content: `
+      <p>Giao tiếp với bố mẹ đôi khi giống như một thử thách lớn, đặc biệt là khi quan điểm của hai thế hệ có sự khác biệt rõ rệt.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Chọn thời điểm thích hợp</h3>
+      <p>Đừng bắt đầu một cuộc trò chuyện quan trọng khi bố mẹ đang mệt mỏi hoặc bận rộn. Hãy chọn lúc không gian yên tĩnh và mọi người đều đang thoải mái.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Sử dụng thông điệp "Tôi"</h3>
+      <p>Thay vì nói "Bố mẹ luôn áp đặt con", hãy thử nói "Con cảm thấy áp lực khi bố mẹ kỳ vọng quá nhiều vào con". Cách nói này giúp giảm bớt sự phòng thủ từ phía bố mẹ.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Lắng nghe trước khi phản hồi</h3>
+      <p>Đôi khi bố mẹ khắt khe cũng vì lo lắng cho bạn. Hãy lắng nghe nỗi lòng của họ trước, sau đó mới trình bày quan điểm của mình một cách từ tốn.</p>
+    `
+  },
+  { 
+    id: "stress-hoc-duong",
+    title: "Dấu hiệu stress học đường", 
+    img: "https://i.imgur.com/ZxCkdEX.png", 
+    date: "25/03/2026",
+    excerpt: "Đừng lờ đi những dấu hiệu của cơ thể. Nhận diện sớm stress giúp bạn bảo vệ sức khỏe tâm thần của mình.",
+    content: `
+      <p>Stress học đường không chỉ là cảm giác mệt mỏi nhất thời, nó có thể ảnh hưởng sâu sắc đến sức khỏe và chất lượng cuộc sống của sinh viên.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Dấu hiệu về thể chất</h3>
+      <p>Đau đầu thường xuyên, mất ngủ, chán ăn hoặc ăn quá nhiều, thường xuyên cảm thấy mệt mỏi dù không vận động nặng.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Dấu hiệu về tâm lý</h3>
+      <p>Dễ cáu gắt, cảm thấy tuyệt vọng, mất hứng thú với những sở thích trước đây, khó tập trung vào việc học tập.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Cách ứng phó</h3>
+      <p>Khi nhận thấy các dấu hiệu này, hãy dành thời gian nghỉ ngơi, trò chuyện với bạn bè hoặc tìm đến các chuyên gia tư vấn tâm lý để được hỗ trợ kịp thời.</p>
+    `
+  },
+  { 
+    id: "yeu-ban-than",
+    title: "Làm sao để yêu bản thân hơn mỗi ngày?", 
+    img: "https://i.imgur.com/2ZkKrFE.png", 
+    date: "22/03/2026",
+    excerpt: "Yêu bản thân là khởi đầu của một cuộc tình lãng mạn suốt đời. Hãy bắt đầu từ những điều nhỏ bé nhất.",
+    content: `
+      <p>Yêu bản thân không phải là ích kỷ, mà là học cách trân trọng và chăm sóc cho chính mình để có thể yêu thương người khác tốt hơn.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Ngừng so sánh</h3>
+      <p>Mỗi người có một hành trình riêng. Đừng so sánh chương 1 của mình với chương 20 của người khác. Hãy tập trung vào sự tiến bộ của chính bạn.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Chấp nhận những khiếm khuyết</h3>
+      <p>Không ai hoàn hảo cả. Hãy học cách bao dung với những lỗi lầm của bản thân và xem đó là bài học để trưởng thành.</p>
+      
+      <h3 class="text-2xl font-black text-primary mt-8 mb-4">Dành thời gian cho sở thích</h3>
+      <p>Dù bận rộn đến đâu, hãy dành ít nhất 30 phút mỗi ngày để làm điều bạn thực sự yêu thích, dù đó chỉ là đọc một vài trang sách hay nghe một bản nhạc hay.</p>
+    `
+  }
+];
+
 const BlogPage = () => {
-  const posts = [
-    { title: "5 cách kiểm soát cơn nóng giận cho sinh viên", img: "https://picsum.photos/seed/anger/600/400", date: "01/04/2026" },
-    { title: "Làm gì khi áp lực thi cử quá lớn?", img: "https://picsum.photos/seed/exam/600/400", date: "30/03/2026" },
-    { title: "Cách nói chuyện với bố mẹ khi không được thấu hiểu", img: "https://picsum.photos/seed/parents/600/400", date: "28/03/2026" },
-    { title: "Dấu hiệu stress học đường", img: "https://picsum.photos/seed/schoolstress/600/400", date: "25/03/2026" },
-    { title: "Làm sao để yêu bản thân hơn mỗi ngày?", img: "https://picsum.photos/seed/love/600/400", date: "22/03/2026" }
-  ];
+  const navigate = useNavigate();
 
   return (
     <PageWrapper>
@@ -1003,7 +1181,7 @@ const BlogPage = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {posts.map((p, i) => (
+          {blogPosts.map((p, i) => (
             <motion.div 
               key={i} 
               initial={{ opacity: 0, y: 30 }}
@@ -1011,6 +1189,7 @@ const BlogPage = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -15 }}
+              onClick={() => navigate(`/blog/${p.id}`)}
               className="liquid-glass overflow-hidden rounded-[4rem] border-2 border-primary/10 hover:border-primary/40 transition-all group cursor-pointer shadow-2xl"
             >
               <div className="h-72 overflow-hidden relative">
@@ -1018,7 +1197,8 @@ const BlogPage = () => {
                 <div className="absolute top-6 left-6 bg-primary text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">{p.date}</div>
               </div>
               <div className="p-10">
-                <h3 className="text-2xl font-black text-foreground leading-tight group-hover:text-primary transition-colors mb-8">{p.title}</h3>
+                <h3 className="text-2xl font-black text-foreground leading-tight group-hover:text-primary transition-colors mb-6">{p.title}</h3>
+                <p className="text-muted-foreground font-bold mb-8 line-clamp-2">{p.excerpt}</p>
                 <div className="flex items-center gap-3 text-primary font-black text-sm group-hover:gap-5 transition-all">
                   ĐỌC THÊM <ChevronRight size={20} />
                 </div>
@@ -1027,6 +1207,82 @@ const BlogPage = () => {
           ))}
         </div>
       </section>
+    </PageWrapper>
+  );
+};
+
+const BlogPostDetailPage = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const post = blogPosts.find(p => p.id === id);
+
+  if (!post) {
+    return (
+      <PageWrapper>
+        <div className="min-h-[60vh] flex flex-col items-center justify-center">
+          <h2 className="text-4xl font-black text-foreground mb-8">Không tìm thấy bài viết</h2>
+          <button 
+            onClick={() => navigate('/blog')}
+            className="px-8 py-4 bg-primary text-white font-black rounded-full hover:scale-105 transition-transform"
+          >
+            QUAY LẠI BLOG
+          </button>
+        </div>
+      </PageWrapper>
+    );
+  }
+
+  return (
+    <PageWrapper>
+      <article className="relative z-10 px-6 py-32 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-12"
+        >
+          <button 
+            onClick={() => navigate('/blog')}
+            className="flex items-center gap-2 text-primary font-black mb-8 hover:gap-4 transition-all"
+          >
+            <ChevronRight size={20} className="rotate-180" /> QUAY LẠI BLOG
+          </button>
+          <div className="text-primary font-black mb-4 uppercase tracking-widest">{post.date}</div>
+          <h1 className="text-5xl md:text-7xl font-black text-foreground mb-8 tracking-tighter leading-tight">{post.title}</h1>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="rounded-[4rem] overflow-hidden shadow-2xl mb-16 border-8 border-white/30"
+        >
+          <img src={post.img} alt={post.title} className="w-full h-auto" referrerPolicy="no-referrer" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="prose prose-xl prose-primary max-w-none font-bold text-muted-foreground leading-relaxed"
+        >
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        </motion.div>
+
+        <div className="mt-24 pt-12 border-t border-primary/10">
+          <h3 className="text-2xl font-black text-foreground mb-8">Bài viết khác</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {blogPosts.filter(p => p.id !== id).slice(0, 2).map((p, i) => (
+              <div 
+                key={i}
+                onClick={() => navigate(`/blog/${p.id}`)}
+                className="liquid-glass p-6 rounded-3xl border border-primary/10 cursor-pointer hover:border-primary/40 transition-all group"
+              >
+                <h4 className="font-black text-foreground group-hover:text-primary transition-colors">{p.title}</h4>
+              </div>
+            ))}
+          </div>
+        </div>
+      </article>
     </PageWrapper>
   );
 };
@@ -1546,6 +1802,173 @@ const FAQPage = () => {
   );
 };
 
+const FeedbackPage = () => {
+  const testimonials = [
+    {
+      name: "Minh Anh",
+      school: "ĐH Bách Khoa",
+      text: "Khóa học đã giúp mình thay đổi hoàn toàn cách nhìn nhận về cảm xúc. Mình không còn cảm thấy tội lỗi khi buồn nữa. Những kỹ thuật hít thở thực sự cứu cánh mình trong mùa thi vừa rồi.",
+      avatar: "https://i.pravatar.cc/150?u=minhanh",
+      rating: 5
+    },
+    {
+      name: "Tuấn Kiệt",
+      school: "ĐH Kinh Tế",
+      text: "Giảng viên cực kỳ tâm lý và nhiệt tình. Những buổi học offline là nơi mình cảm thấy an toàn nhất để chia sẻ những điều chưa bao giờ dám nói với ai.",
+      avatar: "https://i.pravatar.cc/150?u=tuankiet",
+      rating: 5
+    },
+    {
+      name: "Lan Hương",
+      school: "ĐH KHXH&NV",
+      text: "AI cá nhân hóa lộ trình học rất hay, giúp mình theo dõi được sự tiến bộ của bản thân qua từng tuần. Mình cảm thấy tự tin hơn hẳn trong giao tiếp.",
+      avatar: "https://i.pravatar.cc/150?u=lanhuong",
+      rating: 5
+    },
+    {
+      name: "Bảo Ngọc",
+      school: "ĐH Ngoại Thương",
+      text: "Nhịp Tâm An không chỉ là một trung tâm, mà là một gia đình nơi mình được là chính mình. Cảm ơn các thầy cô đã luôn đồng hành cùng em.",
+      avatar: "https://i.pravatar.cc/150?u=baongoc",
+      rating: 5
+    },
+    {
+      name: "Hoàng Nam",
+      school: "ĐH Y Dược",
+      text: "Áp lực ngành Y đôi khi làm mình nghẹt thở, nhưng khóa học quản lý cảm xúc đã giúp mình tìm lại được sự cân bằng và niềm đam mê với nghề.",
+      avatar: "https://i.pravatar.cc/150?u=hoangnam",
+      rating: 5
+    },
+    {
+      name: "Thùy Chi",
+      school: "ĐH Kiến Trúc",
+      text: "Không gian học tập ở đây rất nghệ thuật và chữa lành. Mình được học cách yêu bản thân và trân trọng những cảm xúc nhỏ bé nhất.",
+      avatar: "https://i.pravatar.cc/150?u=thuychi",
+      rating: 5
+    }
+  ];
+
+  const gallery = [
+    { url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800", title: "Workshop Kết Nối" },
+    { url: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&q=80&w=800", title: "Buổi Học Offline" },
+    { url: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=800", title: "Thảo Luận Nhóm" },
+    { url: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800", title: "Hoạt Động Trải Nghiệm" },
+    { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800", title: "Gắn Kết Thành Viên" },
+    { url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800", title: "Lễ Tốt Nghiệp Khóa K1" }
+  ];
+
+  return (
+    <PageWrapper>
+      <section className="relative z-10 px-6 py-32 max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-24"
+        >
+          <h1 className="text-6xl md:text-8xl font-black text-foreground mb-8 tracking-tighter">
+            Học viên <span className="text-primary">nói gì?</span>
+          </h1>
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={{ width: 120 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="h-3 bg-primary mx-auto rounded-full mb-12"
+          ></motion.div>
+          <p className="text-xl md:text-2xl text-muted-foreground font-bold max-w-3xl mx-auto">
+            Hành trình thấu hiểu cảm xúc của hàng ngàn sinh viên đã bắt đầu từ đây. Hãy cùng lắng nghe những chia sẻ chân thực nhất.
+          </p>
+        </motion.div>
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-32">
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="liquid-glass p-10 rounded-[3rem] border-2 border-primary/10 hover:border-primary/40 transition-all shadow-xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-6 opacity-10">
+                <Star size={80} fill="currentColor" className="text-primary" />
+              </div>
+              <div className="flex items-center gap-4 mb-8">
+                <img src={t.avatar} alt={t.name} className="w-16 h-16 rounded-full border-2 border-primary shadow-lg" referrerPolicy="no-referrer" />
+                <div>
+                  <h4 className="font-black text-foreground text-xl">{t.name}</h4>
+                  <p className="text-primary text-sm font-bold uppercase tracking-widest">{t.school}</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-6">
+                {[...Array(t.rating)].map((_, i) => (
+                  <Star key={i} size={16} fill="currentColor" className="text-primary" />
+                ))}
+              </div>
+              <p className="text-muted-foreground font-bold leading-relaxed italic">
+                "{t.text}"
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Course Gallery */}
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-6xl font-black text-foreground mb-8 tracking-tighter">
+            Khoảnh khắc <span className="text-primary">đáng nhớ</span>
+          </h2>
+          <p className="text-xl text-muted-foreground font-bold max-w-3xl mx-auto">
+            Những hình ảnh sưu tầm từ các khóa học, workshop và hoạt động ngoại khóa của Nhịp Tâm An.
+          </p>
+        </div>
+
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+          {gallery.map((img, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              className="relative group rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/30"
+            >
+              <img 
+                src={img.url} 
+                alt={img.title} 
+                className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700" 
+                referrerPolicy="no-referrer" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10">
+                <h4 className="text-white font-black text-2xl tracking-tighter">{img.title}</h4>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="mt-32 liquid-glass p-16 rounded-[4rem] border-4 border-primary/20 text-center shadow-2xl"
+        >
+          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-8 tracking-tighter">
+            Bạn đã sẵn sàng để trở thành <br /> <span className="text-primary">một phần của gia đình Nhịp Tâm An?</span>
+          </h2>
+          <Link 
+            to="/khoahoc"
+            className="inline-block bg-primary text-white px-14 py-6 rounded-full text-xl font-black shadow-2xl hover:shadow-primary/50 transition-all"
+          >
+            Đăng ký học ngay
+          </Link>
+        </motion.div>
+      </section>
+    </PageWrapper>
+  );
+};
+
 export default function App() {
   return (
     <Router>
@@ -1579,8 +2002,10 @@ export default function App() {
               <Route path="/khoahoc" element={<CoursesPage />} />
               <Route path="/giangvien" element={<InstructorsPage />} />
               <Route path="/gioithieu" element={<AboutPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
               <Route path="/hotline" element={<HotlinePage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:id" element={<BlogPostDetailPage />} />
               <Route path="/dangky" element={<RegistrationPage />} />
               <Route path="/dieukhoan" element={<TermsPage />} />
               <Route path="/baomat" element={<PrivacyPage />} />
