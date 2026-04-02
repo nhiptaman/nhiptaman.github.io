@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Facebook, MessageCircle, Play, Heart, Sparkles, Wind, Moon, Sun, ChevronRight, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -163,8 +163,8 @@ const Hero = () => {
         className="mt-12 max-w-3xl"
       >
         <p className="text-xl md:text-2xl text-muted-foreground font-bold leading-relaxed bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-          Nhịp Tâm An là trung tâm quản lý cảm xúc dành riêng cho học sinh THCS, THPT và sinh viên. 
-          Chúng tôi giúp người học nhận diện cảm xúc, giảm stress, cân bằng áp lực học tập và xây dựng những mối quan hệ tích cực.
+          Nhịp Tâm An là trung tâm quản lý cảm xúc dành riêng cho sinh viên. 
+          Chúng tôi giúp các bạn trẻ nhận diện cảm xúc, giảm stress, cân bằng áp lực học tập và xây dựng những mối quan hệ tích cực.
         </p>
       </motion.div>
 
@@ -248,7 +248,7 @@ const ProblemsSection = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-muted-foreground font-bold mb-10"
           >
-            Nhiều học sinh và sinh viên hiện nay đang phải đối mặt với:
+            Nhiều sinh viên hiện nay đang phải đối mặt với:
           </motion.p>
           <ul className="space-y-6">
             {problems.map((p, i) => (
@@ -365,7 +365,7 @@ const DifferenceSection = () => {
           transition={{ delay: 0.2 }}
           className="text-xl text-muted-foreground font-bold max-w-4xl mx-auto"
         >
-          Khác với các trung tâm kỹ năng mềm thông thường, Nhịp Tâm An tập trung chuyên sâu vào giáo dục cảm xúc và sức khỏe tinh thần cho tuổi teen.
+          Khác với các trung tâm kỹ năng mềm thông thường, Nhịp Tâm An tập trung chuyên sâu vào giáo dục cảm xúc và sức khỏe tinh thần cho sinh viên.
         </motion.p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -391,10 +391,10 @@ const DifferenceSection = () => {
 const FeaturedCourses = () => {
   const navigate = useNavigate();
   const courses = [
-    { title: "Yêu chính mình", desc: "Xây dựng sự tự tin, yêu bản thân và bảo vệ giá trị cá nhân.", img: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?q=80&w=800&auto=format&fit=crop" },
-    { title: "Tháo gỡ áp lực tuổi teen", desc: "Giảm stress học tập, thi cử và áp lực kỳ vọng gia đình.", img: "https://picsum.photos/seed/pressure/400/300" },
-    { title: "Bạo lực học đường", desc: "Nhận diện tổn thương tâm lý và cách xử lý an toàn.", img: "https://picsum.photos/seed/safety/400/300" },
-    { title: "Tình yêu – Bạn – Gia đình", desc: "Xây dựng mối quan hệ lành mạnh và giao tiếp thấu cảm.", img: "https://picsum.photos/seed/family/400/300" }
+    { title: "Khóa Nền tảng: Online", desc: "Xây dựng nền tảng EQ vững chắc với chi phí tối ưu chỉ 100.000VNĐ.", img: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?q=80&w=800&auto=format&fit=crop" },
+    { title: "Khóa Nền tảng: Offline", desc: "Trải nghiệm trực tiếp, kết nối sâu sắc với mức phí 200.000VNĐ.", img: "https://picsum.photos/seed/foundation/400/300" },
+    { title: "Khóa Nâng cao: Online", desc: "Làm chủ cảm xúc chuyên sâu qua nền tảng số với 300.000VNĐ.", img: "https://picsum.photos/seed/advanced-online/400/300" },
+    { title: "Khóa Nâng cao: Offline", desc: "Đào tạo chuyên sâu, thực hành thực tế với 400.000VNĐ.", img: "https://picsum.photos/seed/advanced-offline/400/300" }
   ];
 
   return (
@@ -700,9 +700,9 @@ const Footer = () => {
           <h4 className="font-black text-foreground uppercase tracking-[0.2em] mb-8">Hỗ trợ</h4>
           <ul className="space-y-4 font-bold text-muted-foreground">
             <li><Link to="/hotline" className="hover:text-primary transition-colors">Hotline 24/7</Link></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Điều khoản dịch vụ</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Chính sách bảo mật</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Câu hỏi thường gặp</a></li>
+            <li><Link to="/dieukhoan" className="hover:text-primary transition-colors">Điều khoản dịch vụ</Link></li>
+            <li><Link to="/baomat" className="hover:text-primary transition-colors">Chính sách bảo mật</Link></li>
+            <li><Link to="/faq" className="hover:text-primary transition-colors">Câu hỏi thường gặp</Link></li>
           </ul>
         </div>
       </div>
@@ -764,7 +764,7 @@ const AboutPage = () => {
               className="bg-white/5 backdrop-blur-xl p-10 md:p-12 rounded-[3rem] border-2 border-primary/10 shadow-2xl"
             >
               <p className="text-xl text-muted-foreground font-bold leading-relaxed">
-                Nhịp Tâm An được xây dựng với sứ mệnh hướng đến một nền giáo dục hạnh phúc, nơi mỗi học sinh và sinh viên đều có cơ hội hiểu chính mình, làm chủ cảm xúc và phát triển toàn diện.
+                Nhịp Tâm An được xây dựng với sứ mệnh hướng đến một nền giáo dục hạnh phúc, nơi mỗi sinh viên đều có cơ hội hiểu chính mình, làm chủ cảm xúc và phát triển toàn diện.
               </p>
               <p className="text-xl text-muted-foreground font-bold leading-relaxed mt-8">
                 Chúng tôi tin rằng thành công bền vững không chỉ đến từ IQ mà còn bắt đầu từ EQ, khả năng kiểm soát cảm xúc, thấu hiểu bản thân và xây dựng những mối quan hệ tích cực.
@@ -787,30 +787,28 @@ const AboutPage = () => {
 };
 
 const CoursesPage = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [selectedCourse, setSelectedCourse] = React.useState<number | null>(null);
+
   const courses = [
     {
-      title: "Tháo gỡ áp lực tuổi Teen",
-      description: "Khóa học giúp học viên hiểu nguyên nhân gây stress, nhận diện cảm xúc tiêu cực và học cách giải tỏa áp lực từ học tập, thi cử, gia đình và các mối quan hệ.",
-      results: ["Kiểm soát cảm xúc tốt hơn", "Giảm căng thẳng", "Tăng sự tự tin", "Biết cách chia sẻ và tìm hỗ trợ", "Cân bằng học tập và cuộc sống"],
-      format: "Online / Offline / Hybrid",
-      prices: { online: "300.000 VNĐ", offline: "400.000 VNĐ" },
-      icon: "🌿"
-    },
-    {
-      title: "Yêu chính mình & Tự tin",
-      description: "Xây dựng nền tảng tâm lý vững chắc, giúp bạn hiểu rõ giá trị bản thân và không bị tác động bởi những tiêu chuẩn bên ngoài.",
-      results: ["Thấu hiểu bản thân", "Yêu thương cơ thể", "Xây dựng ranh giới cá nhân", "Tự tin giao tiếp", "Tư duy tích cực"],
+      title: "Khóa học Nền tảng: Thấu hiểu & Cân bằng",
+      description: "Chương trình cơ bản giúp sinh viên nhận diện cảm xúc, xây dựng nền tảng tâm lý vững chắc và học cách cân bằng cuộc sống đại học.",
+      details: "Khóa học kéo dài 5 tuần, mỗi tuần 1 buổi từ 20:00 đến 21:30. Sinh viên được tự chọn lịch học (1 ngày cố định trong tuần) cho toàn bộ khóa học. Nội dung tập trung vào các kỹ năng nhận diện và quản lý cảm xúc cơ bản.",
+      results: ["Nhận diện 6 loại cảm xúc cơ bản", "Kỹ thuật hít thở giảm stress tức thì", "Xây dựng thói quen tích cực", "Hiểu về giá trị bản thân", "Giao tiếp cơ bản"],
       format: "Online / Offline",
-      prices: { online: "350.000 VNĐ", offline: "450.000 VNĐ" },
-      icon: "❤️"
+      prices: { online: "100.000 VNĐ", offline: "200.000 VNĐ" },
+      icon: "🌱"
     },
     {
-      title: "Kết nối & Thấu cảm",
-      description: "Cải thiện mối quan hệ với cha mẹ và bạn bè thông qua kỹ năng lắng nghe và giao tiếp trắc ẩn.",
-      results: ["Giao tiếp hiệu quả", "Hóa giải mâu thuẫn", "Lắng nghe thấu cảm", "Xây dựng niềm tin", "Kết nối sâu sắc"],
-      format: "Hybrid",
-      prices: { online: "400.000 VNĐ", offline: "500.000 VNĐ" },
-      icon: "🤝"
+      title: "Khóa học Nâng cao: Làm chủ & Kết nối",
+      description: "Chương trình chuyên sâu tập trung vào kỹ năng làm chủ tâm trí, giải quyết mâu thuẫn phức tạp và xây dựng các mối quan hệ bền vững.",
+      details: "Khóa học kéo dài 5 tuần, mỗi tuần 1 buổi từ 20:00 đến 21:30. Sinh viên được tự chọn lịch học (1 ngày cố định trong tuần) cho toàn bộ khóa học. Nội dung nâng cao mang tính chuyên sâu và hiệu quả vượt trội so với gói cơ bản, giúp chuyển hóa cảm xúc mạnh mẽ.",
+      results: ["Làm chủ cơn giận & lo âu", "Kỹ năng giải quyết xung đột", "Lắng nghe thấu cảm chuyên sâu", "Xây dựng ranh giới cá nhân", "Lãnh đạo bằng trí tuệ cảm xúc"],
+      format: "Online / Offline",
+      prices: { online: "300.000 VNĐ", offline: "400.000 VNĐ" },
+      icon: "💎"
     }
   ];
 
@@ -833,7 +831,7 @@ const CoursesPage = () => {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="liquid-glass p-10 md:p-16 rounded-[4rem] border-2 border-primary/10 grid grid-cols-1 lg:grid-cols-3 gap-16 items-start shadow-2xl"
+              className="liquid-glass p-10 md:p-16 rounded-[4rem] border-2 border-primary/10 grid grid-cols-1 lg:grid-cols-3 gap-16 items-start shadow-2xl overflow-hidden relative"
             >
               <div className="lg:col-span-2">
                 <motion.div 
@@ -841,8 +839,17 @@ const CoursesPage = () => {
                   className="text-8xl mb-10 inline-block drop-shadow-2xl"
                 >{c.icon}</motion.div>
                 <h2 className="text-4xl md:text-5xl font-black text-foreground mb-8 tracking-tight">{c.title}</h2>
-                <p className="text-xl text-muted-foreground font-bold mb-12 leading-relaxed">{c.description}</p>
+                <p className="text-xl text-muted-foreground font-bold mb-8 leading-relaxed">{c.description}</p>
                 
+                <div className="mb-10 p-6 bg-primary/5 rounded-3xl border border-primary/10">
+                  <h4 className="text-sm font-black text-primary uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                    <Sparkles size={16} /> Thông tin chi tiết:
+                  </h4>
+                  <p className="text-lg text-foreground font-bold leading-relaxed italic">
+                    {c.details}
+                  </p>
+                </div>
+
                 <h4 className="text-sm font-black text-primary uppercase tracking-[0.2em] mb-6">Kết quả nhận được:</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
                   {c.results.map((r, idx) => (
@@ -884,6 +891,7 @@ const CoursesPage = () => {
                   <motion.button 
                     whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(var(--primary), 0.3)" }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate(`/dangky?course=${encodeURIComponent(c.title)}&type=Online`)}
                     className="w-full py-5 rounded-2xl bg-primary text-white font-black text-lg shadow-xl transition-all cursor-pointer"
                   >
                     Đăng ký khóa học
@@ -891,6 +899,7 @@ const CoursesPage = () => {
                   <motion.button 
                     whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--primary), 0.1)" }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate(`/dangky?course=${encodeURIComponent(c.title)}&type=Online`)}
                     className="w-full py-5 rounded-2xl border-2 border-primary/30 text-primary font-black text-lg transition-all cursor-pointer"
                   >
                     Nhận lịch khai giảng
@@ -974,7 +983,7 @@ const HotlinePage = () => {
 
 const BlogPage = () => {
   const posts = [
-    { title: "5 cách kiểm soát cơn nóng giận tuổi teen", img: "https://picsum.photos/seed/anger/600/400", date: "01/04/2026" },
+    { title: "5 cách kiểm soát cơn nóng giận cho sinh viên", img: "https://picsum.photos/seed/anger/600/400", date: "01/04/2026" },
     { title: "Làm gì khi áp lực thi cử quá lớn?", img: "https://picsum.photos/seed/exam/600/400", date: "30/03/2026" },
     { title: "Cách nói chuyện với bố mẹ khi không được thấu hiểu", img: "https://picsum.photos/seed/parents/600/400", date: "28/03/2026" },
     { title: "Dấu hiệu stress học đường", img: "https://picsum.photos/seed/schoolstress/600/400", date: "25/03/2026" },
@@ -1025,25 +1034,25 @@ const BlogPage = () => {
 const InstructorsPage = () => {
   const instructors = [
     {
-      name: "Cô Vũ Thị Thắng",
-      role: "Cố vấn học thuật & định hướng chương trình",
-      desc: "Cô là người đồng hành trong quá trình xây dựng mô hình giáo dục cảm xúc của Nhịp Tâm An, hỗ trợ phát triển chương trình đào tạo phù hợp với học sinh THCS, THPT và sinh viên. Với kinh nghiệm trong môi trường giáo dục và sự thấu hiểu tâm lý lứa tuổi teen, cô giúp đội ngũ xây dựng các nội dung học tập vừa gần gũi vừa mang tính ứng dụng cao.",
-      img: "https://picsum.photos/seed/teacher1/600/800",
-      specialty: "Cố vấn chuyên môn"
+      name: "Cô Nguyễn Thúy Hà",
+      role: "Giảng viên Quản lý cảm xúc - Tổ chức Seroto",
+      desc: "Với hơn 5 năm miệt mài gieo mầm bình an, cô Hà không chỉ là một người thầy mà còn là một người bạn tâm giao của sinh viên. Bằng sự nhiệt huyết và trái tim ấm áp, cô luôn biết cách khơi gợi những cảm xúc tích cực, giúp các bạn trẻ tìm thấy ánh sáng trong những giai đoạn chênh vênh nhất của cuộc đời.",
+      img: "https://picsum.photos/seed/teacher-ha/600/800",
+      specialty: "Chuyên gia Trí tuệ cảm xúc"
     },
     {
-      name: "Thầy Nguyễn Việt Thành",
-      role: "Chuyên gia tâm lý học đường & cố vấn cảm xúc",
-      desc: "Thầy là chuyên gia tâm lý học đường với nhiều kinh nghiệm làm việc cùng học sinh trong giai đoạn tuổi teen. Phong cách đồng hành của thầy tập trung vào sự lắng nghe, không phán xét và giúp học viên tự tìm ra hướng giải quyết phù hợp nhất.",
-      tasks: [
-        "Tư vấn quản lý cảm xúc",
-        "Hỗ trợ xử lý áp lực học tập",
-        "Bạo lực học đường",
-        "Khó khăn trong mối quan hệ bạn bè và gia đình",
-        "Định hướng phát triển EQ cho người học"
-      ],
-      img: "https://picsum.photos/seed/teacher2/600/800",
-      specialty: "Chuyên gia tâm lý học đường"
+      name: "Cô Đào Thị Tuất",
+      role: "Giảng viên Quản lý cảm xúc - Tổ chức Seroto",
+      desc: "Sở hữu bề dày kinh nghiệm hơn 5 năm trong lĩnh vực tâm lý, cô Tuất nổi tiếng với phong cách giảng dạy đầy năng lượng và sự tận tâm không biên giới. Cô luôn tin rằng mỗi sinh viên đều là một viên ngọc quý cần được mài giũa bằng sự thấu cảm, giúp các bạn tự tin làm chủ tâm trí và kiến tạo cuộc sống hạnh phúc.",
+      img: "https://picsum.photos/seed/teacher-tuat/600/800",
+      specialty: "Chuyên gia Tâm lý học đường"
+    },
+    {
+      name: "Cô Nguyễn Thy Thy",
+      role: "Giảng viên Quản lý cảm xúc - Tổ chức Seroto",
+      desc: "Với hơn 5 năm kinh nghiệm đồng hành cùng giới trẻ, cô Thy Thy mang đến một làn gió mới trong việc quản lý cảm xúc. Sự tinh tế, nhẹ nhàng nhưng đầy quyết đoán của cô đã giúp hàng ngàn sinh viên tháo gỡ những nút thắt trong lòng, xây dựng nội lực vững vàng để đối mặt với mọi áp lực xã hội.",
+      img: "https://picsum.photos/seed/teacher-thy/600/800",
+      specialty: "Chuyên gia Kết nối & Thấu cảm"
     }
   ];
 
@@ -1124,11 +1133,11 @@ const InstructorsPage = () => {
                 <p className="text-2xl font-black text-primary italic">{ins.role}</p>
                 <p className="text-xl text-muted-foreground font-bold leading-relaxed">{ins.desc}</p>
                 
-                {ins.tasks && (
+                {(ins as any).tasks && (
                   <div className="space-y-4">
                     <h4 className="text-sm font-black text-foreground uppercase tracking-[0.2em] opacity-60">Lĩnh vực phụ trách:</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {ins.tasks.map((task, idx) => (
+                      {(ins as any).tasks.map((task: string, idx: number) => (
                         <div key={idx} className="flex items-center gap-3 text-foreground font-bold">
                           <div className="h-2 w-2 rounded-full bg-primary" />
                           {task}
@@ -1281,6 +1290,262 @@ const InstructorsPage = () => {
   );
 };
 
+const RegistrationPage = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [step, setStep] = React.useState(1);
+  const [formData, setFormData] = React.useState({
+    course: searchParams.get('course') || "Khóa học Nền tảng",
+    type: searchParams.get('type') || "Online",
+    month: "Tháng 4/2026",
+    day: "Thứ Hai",
+    name: "",
+    phone: ""
+  });
+
+  const steps = ["Chọn khóa học", "Chọn lịch khai giảng", "Thanh toán"];
+
+  const schedules = [
+    { month: "Tháng 4/2026", start: "01/04/2026" },
+    { month: "Tháng 5/2026", start: "01/05/2026" },
+    { month: "Tháng 6/2026", start: "01/06/2026" }
+  ];
+
+  const days = ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu"];
+
+  const prices: Record<string, Record<string, string>> = {
+    "Khóa học Nền tảng": { "Online": "100.000 VNĐ", "Offline": "200.000 VNĐ" },
+    "Khóa học Nâng cao": { "Online": "300.000 VNĐ", "Offline": "400.000 VNĐ" }
+  };
+
+  const currentPrice = prices[formData.course.includes("Nền tảng") ? "Khóa học Nền tảng" : "Khóa học Nâng cao"]?.[formData.type] || "0 VNĐ";
+
+  return (
+    <PageWrapper>
+      <section className="relative z-10 px-6 py-32 max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-black text-foreground mb-6 tracking-tighter">Đăng ký <span className="text-primary">khai giảng</span></h1>
+          <div className="flex justify-center items-center gap-4">
+            {steps.map((s, i) => (
+              <React.Fragment key={i}>
+                <div className={`flex items-center gap-2 ${step >= i + 1 ? 'text-primary' : 'text-muted-foreground'}`}>
+                  <div className={`h-8 w-8 rounded-full flex items-center justify-center font-black border-2 ${step >= i + 1 ? 'border-primary bg-primary text-white' : 'border-muted-foreground'}`}>
+                    {i + 1}
+                  </div>
+                  <span className="hidden sm:inline font-bold">{s}</span>
+                </div>
+                {i < steps.length - 1 && <div className={`h-1 w-8 rounded-full ${step > i + 1 ? 'bg-primary' : 'bg-muted-foreground/20'}`} />}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        <div className="liquid-glass p-8 md:p-12 rounded-[3rem] border-2 border-primary/10 shadow-2xl">
+          {step === 1 && (
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
+              <div className="space-y-4">
+                <label className="text-sm font-black text-foreground uppercase tracking-widest">Khóa học bạn chọn:</label>
+                <div className="grid grid-cols-1 gap-4">
+                  {["Khóa học Nền tảng: Thấu hiểu & Cân bằng", "Khóa học Nâng cao: Làm chủ & Kết nối"].map(c => (
+                    <button 
+                      key={c}
+                      onClick={() => setFormData({...formData, course: c})}
+                      className={`p-6 rounded-2xl border-2 text-left transition-all ${formData.course === c ? 'border-primary bg-primary/5' : 'border-white/10 hover:border-primary/30'}`}
+                    >
+                      <span className="font-black text-lg block">{c}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-4">
+                <label className="text-sm font-black text-foreground uppercase tracking-widest">Hình thức học:</label>
+                <div className="flex gap-4">
+                  {["Online", "Offline"].map(t => (
+                    <button 
+                      key={t}
+                      onClick={() => setFormData({...formData, type: t})}
+                      className={`flex-1 p-4 rounded-2xl border-2 font-black transition-all ${formData.type === t ? 'border-primary bg-primary/5 text-primary' : 'border-white/10 text-muted-foreground'}`}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <button onClick={() => setStep(2)} className="w-full py-5 bg-primary text-white rounded-2xl font-black text-xl shadow-xl">Tiếp theo</button>
+            </motion.div>
+          )}
+
+          {step === 2 && (
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
+              <div className="space-y-4">
+                <label className="text-sm font-black text-foreground uppercase tracking-widest">Tháng khai giảng (Bắt đầu từ ngày 01 hàng tháng):</label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {schedules.map(s => (
+                    <button 
+                      key={s.month}
+                      onClick={() => setFormData({...formData, month: s.month})}
+                      className={`p-4 rounded-2xl border-2 transition-all text-center ${formData.month === s.month ? 'border-primary bg-primary/5' : 'border-white/10'}`}
+                    >
+                      <span className="font-black block">{s.month}</span>
+                      <span className="text-xs text-muted-foreground">Khai giảng: {s.start}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-4">
+                <label className="text-sm font-black text-foreground uppercase tracking-widest">Chọn ngày học cố định (20:00 - 21:30):</label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {days.map(d => (
+                    <button 
+                      key={d}
+                      onClick={() => setFormData({...formData, day: d})}
+                      className={`p-3 rounded-xl border-2 font-bold transition-all ${formData.day === d ? 'border-primary bg-primary/5 text-primary' : 'border-white/10 text-muted-foreground'}`}
+                    >
+                      {d}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-primary font-bold italic">* Lưu ý: Lịch học sẽ cố định trong suốt 5 tuần của khóa học.</p>
+              </div>
+              <div className="flex gap-4">
+                <button onClick={() => setStep(1)} className="flex-1 py-5 border-2 border-primary/30 text-primary rounded-2xl font-black text-xl">Quay lại</button>
+                <button onClick={() => setStep(3)} className="flex-1 py-5 bg-primary text-white rounded-2xl font-black text-xl shadow-xl">Tiếp theo</button>
+              </div>
+            </motion.div>
+          )}
+
+          {step === 3 && (
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
+              <div className="p-6 bg-primary/5 rounded-3xl border border-primary/10 space-y-4">
+                <h3 className="text-2xl font-black text-foreground">Tóm tắt đơn hàng</h3>
+                <div className="space-y-2 font-bold text-muted-foreground">
+                  <div className="flex justify-between"><span>Khóa học:</span> <span className="text-foreground">{formData.course}</span></div>
+                  <div className="flex justify-between"><span>Hình thức:</span> <span className="text-foreground">{formData.type}</span></div>
+                  <div className="flex justify-between"><span>Khai giảng:</span> <span className="text-foreground">{formData.month}</span></div>
+                  <div className="flex justify-between"><span>Lịch học:</span> <span className="text-foreground">{formData.day} (20:00 - 21:30)</span></div>
+                  <div className="h-px bg-white/10 my-4" />
+                  <div className="flex justify-between text-2xl font-black text-primary"><span>Tổng cộng:</span> <span>{currentPrice}</span></div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-foreground">Thông tin thanh toán</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  <div className="space-y-4">
+                    <p className="font-bold text-muted-foreground">Vui lòng chuyển khoản theo thông tin bên dưới:</p>
+                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-2 font-mono text-sm">
+                      <p>Ngân hàng: <span className="text-primary font-bold">MB Bank</span></p>
+                      <p>Số TK: <span className="text-primary font-bold">1234567890</span></p>
+                      <p>Chủ TK: <span className="text-primary font-bold">NHIP TAM AN</span></p>
+                      <p>Nội dung: <span className="text-primary font-bold">DK {formData.course.split(':')[0]}</span></p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="h-48 w-48 bg-white p-4 rounded-3xl shadow-2xl">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=STK_INFO" alt="QR Payment" className="w-full h-full" />
+                    </div>
+                    <span className="text-xs font-black text-muted-foreground uppercase tracking-widest">Quét mã để thanh toán nhanh</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <button onClick={() => setStep(2)} className="flex-1 py-5 border-2 border-primary/30 text-primary rounded-2xl font-black text-xl">Quay lại</button>
+                <button onClick={() => {
+                  alert("Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ sớm nhất.");
+                  navigate('/');
+                }} className="flex-1 py-5 bg-primary text-white rounded-2xl font-black text-xl shadow-xl">Xác nhận đã chuyển khoản</button>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </section>
+    </PageWrapper>
+  );
+};
+const TermsPage = () => (
+  <PageWrapper>
+    <section className="relative z-10 px-6 py-32 max-w-4xl mx-auto">
+      <h1 className="text-5xl md:text-6xl font-black text-foreground mb-12 tracking-tighter">Điều khoản <span className="text-primary">dịch vụ</span></h1>
+      <div className="space-y-8 text-lg text-muted-foreground font-bold leading-relaxed">
+        <p>Chào mừng bạn đến với Nhịp Tâm An. Khi sử dụng dịch vụ của chúng tôi, bạn đồng ý với các điều khoản sau:</p>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-black text-foreground">1. Đăng ký khóa học</h3>
+          <p>Học viên cần cung cấp thông tin chính xác khi đăng ký. Lịch học sau khi đã chọn cố định sẽ không được thay đổi trong suốt khóa học 5 tuần để đảm bảo tính kỷ luật và hiệu quả.</p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-black text-foreground">2. Hoàn phí</h3>
+          <p>Học phí sẽ không được hoàn lại sau khi khóa học đã bắt đầu. Trường hợp đặc biệt cần bảo lưu, vui lòng liên hệ hotline trước 48h.</p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-black text-foreground">3. Quyền sở hữu trí tuệ</h3>
+          <p>Toàn bộ nội dung bài giảng, tài liệu và phương pháp đào tạo thuộc bản quyền của Nhịp Tâm An. Nghiêm cấm sao chép hoặc chia sẻ dưới mọi hình thức.</p>
+        </div>
+      </div>
+    </section>
+  </PageWrapper>
+);
+
+const PrivacyPage = () => (
+  <PageWrapper>
+    <section className="relative z-10 px-6 py-32 max-w-4xl mx-auto">
+      <h1 className="text-5xl md:text-6xl font-black text-foreground mb-12 tracking-tighter">Chính sách <span className="text-primary">bảo mật</span></h1>
+      <div className="space-y-8 text-lg text-muted-foreground font-bold leading-relaxed">
+        <p>Tại Nhịp Tâm An, sự an toàn và riêng tư của bạn là ưu tiên hàng đầu của chúng tôi.</p>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-black text-foreground">1. Thu thập thông tin</h3>
+          <p>Chúng tôi chỉ thu thập các thông tin cần thiết như họ tên, số điện thoại và email để phục vụ việc đăng ký và hỗ trợ học tập.</p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-black text-foreground">2. Bảo mật cảm xúc</h3>
+          <p>Mọi chia sẻ của học viên trong các buổi học hoặc tư vấn 1:1 đều được bảo mật tuyệt đối, không chia sẻ với bên thứ ba trừ khi có sự đồng ý của học viên hoặc yêu cầu pháp lý khẩn cấp.</p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-black text-foreground">3. Sử dụng dữ liệu</h3>
+          <p>Dữ liệu từ nhật ký cảm xúc số được sử dụng ẩn danh để AI cá nhân hóa lộ trình học tập cho riêng bạn.</p>
+        </div>
+      </div>
+    </section>
+  </PageWrapper>
+);
+
+const FAQPage = () => {
+  const faqs = [
+    { q: "Khóa học kéo dài bao lâu?", a: "Tất cả các khóa học (Nền tảng và Nâng cao) đều kéo dài trong 5 tuần, mỗi tuần 1 buổi." },
+    { q: "Thời gian học cụ thể như thế nào?", a: "Các buổi học diễn ra từ 20:00 đến 21:30 tối. Bạn được tự chọn 1 ngày trong tuần phù hợp với lịch cá nhân." },
+    { q: "Tôi có thể đổi lịch học giữa chừng không?", a: "Để đảm bảo hiệu quả và tính cố định của nhóm học, lịch học đã chọn sẽ được giữ nguyên cho tới hết khóa học." },
+    { q: "Khóa Nâng cao khác gì khóa Nền tảng?", a: "Khóa Nâng cao đi sâu vào các kỹ thuật chuyển hóa cảm xúc mạnh mẽ, giải quyết mâu thuẫn phức tạp và mang lại hiệu quả bền vững hơn so với các kỹ năng cơ bản ở khóa Nền tảng." },
+    { q: "Tôi có được hỗ trợ sau khóa học không?", a: "Có, Nhịp Tâm An luôn có đội ngũ chuyên gia đồng hành và cộng đồng học viên để hỗ trợ bạn lâu dài." }
+  ];
+
+  return (
+    <PageWrapper>
+      <section className="relative z-10 px-6 py-32 max-w-4xl mx-auto">
+        <h1 className="text-5xl md:text-6xl font-black text-foreground mb-12 tracking-tighter">Câu hỏi <span className="text-primary">thường gặp</span></h1>
+        <div className="space-y-6">
+          {faqs.map((faq, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="liquid-glass p-8 rounded-3xl border border-primary/10 shadow-lg"
+            >
+              <h3 className="text-xl font-black text-foreground mb-4 flex items-center gap-3">
+                <span className="text-primary">Q:</span> {faq.q}
+              </h3>
+              <p className="text-muted-foreground font-bold leading-relaxed pl-8 border-l-2 border-primary/20">
+                <span className="text-primary font-black mr-2">A:</span> {faq.a}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </PageWrapper>
+  );
+};
+
 export default function App() {
   return (
     <Router>
@@ -1316,6 +1581,10 @@ export default function App() {
               <Route path="/gioithieu" element={<AboutPage />} />
               <Route path="/hotline" element={<HotlinePage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/dangky" element={<RegistrationPage />} />
+              <Route path="/dieukhoan" element={<TermsPage />} />
+              <Route path="/baomat" element={<PrivacyPage />} />
+              <Route path="/faq" element={<FAQPage />} />
             </Routes>
           </AnimatePresence>
         </div>
