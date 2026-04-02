@@ -391,7 +391,7 @@ const DifferenceSection = () => {
 const FeaturedCourses = () => {
   const navigate = useNavigate();
   const courses = [
-    { title: "Yêu chính mình", desc: "Xây dựng sự tự tin, yêu bản thân và bảo vệ giá trị cá nhân.", img: "https://picsum.photos/seed/selflove/400/300" },
+    { title: "Yêu chính mình", desc: "Xây dựng sự tự tin, yêu bản thân và bảo vệ giá trị cá nhân.", img: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?q=80&w=800&auto=format&fit=crop" },
     { title: "Tháo gỡ áp lực tuổi teen", desc: "Giảm stress học tập, thi cử và áp lực kỳ vọng gia đình.", img: "https://picsum.photos/seed/pressure/400/300" },
     { title: "Bạo lực học đường", desc: "Nhận diện tổn thương tâm lý và cách xử lý an toàn.", img: "https://picsum.photos/seed/safety/400/300" },
     { title: "Tình yêu – Bạn – Gia đình", desc: "Xây dựng mối quan hệ lành mạnh và giao tiếp thấu cảm.", img: "https://picsum.photos/seed/family/400/300" }
