@@ -88,10 +88,10 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden lg:flex items-center gap-8 font-black text-sm uppercase tracking-widest">
-          {['Trang chủ', 'Khóa học', 'Giảng viên', 'Feedback', 'Giới thiệu', 'Blog'].map((item, i) => (
+          {['Trang chủ', 'Khóa học', 'Giảng viên', 'Feedback', 'Giới thiệu', 'Blog', 'Test'].map((item, i) => (
             <Link 
               key={item}
-              to={i === 0 ? "/" : i === 1 ? "/khoahoc" : i === 2 ? "/giangvien" : i === 3 ? "/feedback" : i === 4 ? "/gioithieu" : "/blog"} 
+              to={i === 0 ? "/" : i === 1 ? "/khoahoc" : i === 2 ? "/giangvien" : i === 3 ? "/feedback" : i === 4 ? "/gioithieu" : i === 5 ? "/blog" : "/test-cam-xuc"} 
               className="text-foreground/70 hover:text-primary transition-colors relative group"
             >
               {item}
@@ -124,6 +124,7 @@ const Navbar = () => {
 
 const QuickAccess = () => {
   const links = [
+    { name: "Test cảm xúc", to: "/test-cam-xuc", icon: "🧠" },
     { name: "Khóa học", to: "/khoahoc", icon: "📚" },
     { name: "Hotline", to: "/hotline", icon: "📞" },
     { name: "Feedback", to: "/feedback", icon: "⭐" },
@@ -1793,6 +1794,149 @@ const PrivacyPage = () => (
   </PageWrapper>
 );
 
+const EmotionTestPage = () => {
+  const navigate = useNavigate();
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const [scores, setScores] = React.useState({ basic: 0, advanced: 0 });
+  const [showResult, setShowResult] = React.useState(false);
+
+  const questions = [
+    {
+      q: "Bạn thường cảm thấy thế nào khi gặp áp lực lớn?",
+      options: [
+        { text: "Dễ mất bình tĩnh, hay cáu gắt hoặc muốn khóc ngay", score: { basic: 2, advanced: 1 } },
+        { text: "Cố gắng kìm nén nhưng sau đó lại bùng nổ dữ dội", score: { basic: 1, advanced: 2 } },
+        { text: "Cảm thấy trống rỗng, không biết phải làm gì", score: { basic: 2, advanced: 0 } },
+        { text: "Có thể kiểm soát được nhưng vẫn thấy mệt mỏi", score: { basic: 0, advanced: 2 } }
+      ]
+    },
+    {
+      q: "Trong các mối quan hệ, bạn gặp khó khăn gì nhất?",
+      options: [
+        { text: "Không biết cách diễn đạt cảm xúc của mình cho người khác", score: { basic: 2, advanced: 0 } },
+        { text: "Hay xảy ra mâu thuẫn vì không kiềm chế được lời nói", score: { basic: 1, advanced: 2 } },
+        { text: "Cảm thấy khó kết nối sâu sắc với mọi người", score: { basic: 0, advanced: 2 } },
+        { text: "Sợ bị từ chối nên thường chiều theo ý người khác", score: { basic: 2, advanced: 1 } }
+      ]
+    },
+    {
+      q: "Bạn mong muốn điều gì nhất lúc này?",
+      options: [
+        { text: "Tìm lại sự bình yên và thấu hiểu bản thân", score: { basic: 2, advanced: 0 } },
+        { text: "Học cách làm chủ cảm xúc trong mọi tình huống", score: { basic: 1, advanced: 2 } },
+        { text: "Cải thiện kỹ năng giao tiếp và kết nối", score: { basic: 0, advanced: 2 } },
+        { text: "Vượt qua những tổn thương trong quá khứ", score: { basic: 1, advanced: 2 } }
+      ]
+    }
+  ];
+
+  const handleAnswer = (score: { basic: number, advanced: number }) => {
+    setScores(prev => ({
+      basic: prev.basic + score.basic,
+      advanced: prev.advanced + score.advanced
+    }));
+
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(prev => prev + 1);
+    } else {
+      setShowResult(true);
+    }
+  };
+
+  const recommendation = scores.advanced >= scores.basic 
+    ? {
+        title: "Khóa học Nâng cao: Làm chủ & Kết nối",
+        desc: "Bạn đã có nền tảng nhận thức về cảm xúc nhưng cần những kỹ thuật chuyên sâu hơn để chuyển hóa và xây dựng các mối quan hệ bền vững.",
+        link: "/khoahoc?course=advanced"
+      }
+    : {
+        title: "Khóa học Nền tảng: Thấu hiểu & Cân bằng",
+        desc: "Bạn đang ở giai đoạn bắt đầu hành trình khám phá bản thân. Khóa học này sẽ giúp bạn xây dựng nền móng vững chắc để thấu hiểu và yêu thương chính mình.",
+        link: "/khoahoc?course=basic"
+      };
+
+  return (
+    <PageWrapper>
+      <section className="relative z-10 px-6 py-32 max-w-4xl mx-auto min-h-screen flex flex-col justify-center">
+        {!showResult ? (
+          <motion.div 
+            key={currentQuestion}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="liquid-glass p-10 md:p-16 rounded-[3rem] border-4 border-primary/20 shadow-2xl"
+          >
+            <div className="mb-8 flex justify-between items-center">
+              <span className="text-primary font-black uppercase tracking-widest text-sm">Câu hỏi {currentQuestion + 1}/{questions.length}</span>
+              <div className="h-2 w-32 bg-white/20 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                  className="h-full bg-primary"
+                />
+              </div>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-10 tracking-tighter leading-tight">
+              {questions[currentQuestion].q}
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              {questions[currentQuestion].options.map((opt, i) => (
+                <motion.button
+                  key={i}
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleAnswer(opt.score)}
+                  className="p-6 rounded-2xl border-2 border-white/10 bg-white/5 hover:border-primary/50 hover:bg-primary/5 text-left font-bold text-foreground transition-all flex items-center gap-4 group"
+                >
+                  <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black group-hover:bg-primary group-hover:text-white transition-colors">
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  {opt.text}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="liquid-glass p-10 md:p-16 rounded-[4rem] border-4 border-primary/20 text-center shadow-2xl"
+          >
+            <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8">
+              <Sparkles className="text-primary" size={48} />
+            </div>
+            <h2 className="text-sm font-black text-primary uppercase tracking-[0.3em] mb-4">Kết quả của bạn</h2>
+            <h3 className="text-4xl md:text-5xl font-black text-foreground mb-6 tracking-tighter leading-tight">
+              {recommendation.title}
+            </h3>
+            <p className="text-xl text-muted-foreground font-bold mb-12 max-w-2xl mx-auto leading-relaxed">
+              {recommendation.desc}
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <button 
+                onClick={() => navigate(recommendation.link)}
+                className="bg-primary text-white px-10 py-5 rounded-full text-xl font-black shadow-2xl hover:shadow-primary/50 transition-all"
+              >
+                Tìm hiểu khóa học ngay
+              </button>
+              <button 
+                onClick={() => {
+                  setCurrentQuestion(0);
+                  setScores({ basic: 0, advanced: 0 });
+                  setShowResult(false);
+                }}
+                className="liquid-glass px-10 py-5 rounded-full text-xl font-black text-foreground border-2 border-primary/30"
+              >
+                Làm lại test
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </section>
+    </PageWrapper>
+  );
+};
+
 const FAQPage = () => {
   const faqs = [
     { q: "Khóa học kéo dài bao lâu?", a: "Tất cả các khóa học (Nền tảng và Nâng cao) đều kéo dài trong 5 tuần, mỗi tuần 1 buổi." },
@@ -2033,6 +2177,7 @@ export default function App() {
               <Route path="/gioithieu" element={<AboutPage />} />
               <Route path="/feedback" element={<FeedbackPage />} />
               <Route path="/hotline" element={<HotlinePage />} />
+              <Route path="/test-cam-xuc" element={<EmotionTestPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:id" element={<BlogPostDetailPage />} />
               <Route path="/dangky" element={<RegistrationPage />} />
