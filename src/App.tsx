@@ -230,7 +230,7 @@ const ProblemsSection = () => {
           transition={{ duration: 0.8 }}
           className="rounded-[4rem] overflow-hidden shadow-2xl border-8 border-white/30"
         >
-          <img src="https://picsum.photos/seed/stress/800/1000" alt="Student stress" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
+          <img src="https://i.imgur.com/ocLxgJo.png" alt="Student stress" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
         </motion.div>
         <div>
           <motion.h2 
@@ -391,10 +391,10 @@ const DifferenceSection = () => {
 const FeaturedCourses = () => {
   const navigate = useNavigate();
   const courses = [
-    { title: "Khóa Nền tảng: Online", desc: "Xây dựng nền tảng EQ vững chắc với chi phí tối ưu chỉ 100.000VNĐ.", img: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?q=80&w=800&auto=format&fit=crop" },
-    { title: "Khóa Nền tảng: Offline", desc: "Trải nghiệm trực tiếp, kết nối sâu sắc với mức phí 200.000VNĐ.", img: "https://picsum.photos/seed/foundation/400/300" },
-    { title: "Khóa Nâng cao: Online", desc: "Làm chủ cảm xúc chuyên sâu qua nền tảng số với 300.000VNĐ.", img: "https://picsum.photos/seed/advanced-online/400/300" },
-    { title: "Khóa Nâng cao: Offline", desc: "Đào tạo chuyên sâu, thực hành thực tế với 400.000VNĐ.", img: "https://picsum.photos/seed/advanced-offline/400/300" }
+    { title: "Khóa Nền tảng: Online", desc: "Xây dựng nền tảng EQ vững chắc với chi phí tối ưu chỉ 100.000VNĐ.", img: "https://i.imgur.com/9GwwuEE.png" },
+    { title: "Khóa Nền tảng: Offline", desc: "Trải nghiệm trực tiếp, kết nối sâu sắc với mức phí 200.000VNĐ.", img: "https://i.imgur.com/0ULt3td.png" },
+    { title: "Khóa Nâng cao: Online", desc: "Làm chủ cảm xúc chuyên sâu qua nền tảng số với 300.000VNĐ.", img: "https://i.imgur.com/huHbbDH.png" },
+    { title: "Khóa Nâng cao: Offline", desc: "Đào tạo chuyên sâu, thực hành thực tế với 400.000VNĐ.", img: "https://i.imgur.com/5oY6wPs.png" }
   ];
 
   return (
@@ -1037,21 +1037,21 @@ const InstructorsPage = () => {
       name: "Cô Nguyễn Thúy Hà",
       role: "Giảng viên Quản lý cảm xúc - Tổ chức Seroto",
       desc: "Với hơn 5 năm miệt mài gieo mầm bình an, cô Hà không chỉ là một người thầy mà còn là một người bạn tâm giao của sinh viên. Bằng sự nhiệt huyết và trái tim ấm áp, cô luôn biết cách khơi gợi những cảm xúc tích cực, giúp các bạn trẻ tìm thấy ánh sáng trong những giai đoạn chênh vênh nhất của cuộc đời.",
-      img: "https://picsum.photos/seed/teacher-ha/600/800",
+      img: "https://i.imgur.com/s2Ve325.jpeg",
       specialty: "Chuyên gia Trí tuệ cảm xúc"
     },
     {
       name: "Cô Đào Thị Tuất",
       role: "Giảng viên Quản lý cảm xúc - Tổ chức Seroto",
       desc: "Sở hữu bề dày kinh nghiệm hơn 5 năm trong lĩnh vực tâm lý, cô Tuất nổi tiếng với phong cách giảng dạy đầy năng lượng và sự tận tâm không biên giới. Cô luôn tin rằng mỗi sinh viên đều là một viên ngọc quý cần được mài giũa bằng sự thấu cảm, giúp các bạn tự tin làm chủ tâm trí và kiến tạo cuộc sống hạnh phúc.",
-      img: "https://picsum.photos/seed/teacher-tuat/600/800",
+      img: "https://i.imgur.com/TpoSZBv.jpeg",
       specialty: "Chuyên gia Tâm lý học đường"
     },
     {
       name: "Cô Nguyễn Thy Thy",
       role: "Giảng viên Quản lý cảm xúc - Tổ chức Seroto",
       desc: "Với hơn 5 năm kinh nghiệm đồng hành cùng giới trẻ, cô Thy Thy mang đến một làn gió mới trong việc quản lý cảm xúc. Sự tinh tế, nhẹ nhàng nhưng đầy quyết đoán của cô đã giúp hàng ngàn sinh viên tháo gỡ những nút thắt trong lòng, xây dựng nội lực vững vàng để đối mặt với mọi áp lực xã hội.",
-      img: "https://picsum.photos/seed/teacher-thy/600/800",
+      img: "https://i.imgur.com/eeCrgDO.jpeg",
       specialty: "Chuyên gia Kết nối & Thấu cảm"
     }
   ];
