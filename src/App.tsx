@@ -638,9 +638,9 @@ const ContactSection = () => {
         <div className="space-y-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {[
-              { icon: "📍", title: "Địa chỉ", desc: "123 Đường Bình An, Quận Tâm Lý, TP. Hồ Chí Minh" },
-              { icon: "📞", title: "Hotline", desc: "1900 xxxx (24/7)" },
-              { icon: "✉️", title: "Email", desc: "lienhe@nhiptaman.vn" },
+              { icon: "📍", title: "Địa chỉ", desc: "Thôn Nhạc Lộc, Xã Như Quỳnh, Tỉnh Hưng Yên" },
+              { icon: "📞", title: "Hotline", desc: "0394155763" },
+              { icon: "✉️", title: "Email", desc: "nhiptaman@gmail.com" },
               { icon: "🌐", title: "Mạng xã hội", isSocial: true }
             ].map((item, i) => (
               <motion.div 
@@ -656,7 +656,7 @@ const ContactSection = () => {
                 <h4 className="font-black text-foreground text-xl mb-3">{item.title}</h4>
                 {item.isSocial ? (
                   <div className="flex gap-6 mt-4">
-                    <motion.a whileHover={{ scale: 1.3, color: "#1877F2" }} href="#" className="text-primary transition-colors" title="Facebook"><Facebook size={28} /></motion.a>
+                    <motion.a whileHover={{ scale: 1.3, color: "#1877F2" }} href="https://web.facebook.com/tm12a.tamlyhoc" target="_blank" rel="noopener noreferrer" className="text-primary transition-colors" title="Facebook"><Facebook size={28} /></motion.a>
                     <motion.a whileHover={{ scale: 1.3, color: "#000000" }} href="#" className="text-primary transition-colors" title="TikTok"><Play size={28} /></motion.a>
                     <motion.a whileHover={{ scale: 1.3, color: "#0068FF" }} href="#" className="text-primary transition-colors" title="Zalo"><MessageCircle size={28} /></motion.a>
                   </div>
