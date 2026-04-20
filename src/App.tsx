@@ -88,10 +88,10 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden lg:flex items-center gap-8 font-black text-sm uppercase tracking-widest">
-          {['Trang chủ', 'Khóa học', 'Giảng viên', 'Feedback', 'Giới thiệu', 'Blog', 'Test'].map((item, i) => (
+          {['Trang chủ', 'Khóa học', 'Giảng viên', 'Giới thiệu', 'Blog', 'Test'].map((item, i) => (
             <Link 
               key={item}
-              to={i === 0 ? "/" : i === 1 ? "/khoahoc" : i === 2 ? "/giangvien" : i === 3 ? "/feedback" : i === 4 ? "/gioithieu" : i === 5 ? "/blog" : "/test-cam-xuc"} 
+              to={i === 0 ? "/" : i === 1 ? "/khoahoc" : i === 2 ? "/giangvien" : i === 3 ? "/gioithieu" : i === 4 ? "/blog" : "/test-cam-xuc"} 
               className="text-foreground/70 hover:text-primary transition-colors relative group"
             >
               {item}
@@ -127,7 +127,6 @@ const QuickAccess = () => {
     { name: "Test cảm xúc", to: "/test-cam-xuc", icon: "🧠" },
     { name: "Khóa học", to: "/khoahoc", icon: "📚" },
     { name: "Hotline", to: "/hotline", icon: "📞" },
-    { name: "Feedback", to: "/feedback", icon: "⭐" },
     { name: "FAQ", to: "/faq", icon: "❓" },
     { name: "Blog", to: "/blog", icon: "📝" },
     { name: "Giảng viên", to: "/giangvien", icon: "👨‍🏫" },
@@ -720,7 +719,6 @@ const Footer = () => {
             <li><Link to="/" className="hover:text-primary transition-colors">Trang chủ</Link></li>
             <li><Link to="/gioithieu" className="hover:text-primary transition-colors">Về chúng tôi</Link></li>
             <li><Link to="/giangvien" className="hover:text-primary transition-colors">Đội ngũ giảng viên</Link></li>
-            <li><Link to="/feedback" className="hover:text-primary transition-colors">Feedback học viên</Link></li>
             <li><Link to="/khoahoc" className="hover:text-primary transition-colors">Khóa học</Link></li>
             <li><Link to="/blog" className="hover:text-primary transition-colors">Blog Tâm An</Link></li>
           </ul>
@@ -1582,7 +1580,7 @@ const RegistrationPage = () => {
   const [formData, setFormData] = React.useState({
     course: searchParams.get('course') || "Khóa học Nền tảng",
     type: searchParams.get('type') || "Online",
-    month: "Tháng 4/2026",
+    month: "Tháng 5/2026",
     day: "Thứ Hai",
     name: "",
     phone: ""
@@ -1591,9 +1589,9 @@ const RegistrationPage = () => {
   const steps = ["Chọn khóa học", "Chọn lịch khai giảng", "Thanh toán"];
 
   const schedules = [
-    { month: "Tháng 4/2026", start: "01/04/2026" },
     { month: "Tháng 5/2026", start: "01/05/2026" },
-    { month: "Tháng 6/2026", start: "01/06/2026" }
+    { month: "Tháng 6/2026", start: "01/06/2026" },
+    { month: "Tháng 7/2026", start: "01/07/2026" }
   ];
 
   const days = ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu"];
@@ -1974,172 +1972,6 @@ const FAQPage = () => {
   );
 };
 
-const FeedbackPage = () => {
-  const testimonials = [
-    {
-      name: "Minh Anh",
-      school: "ĐH Bách Khoa",
-      text: "Khóa học đã giúp mình thay đổi hoàn toàn cách nhìn nhận về cảm xúc. Mình không còn cảm thấy tội lỗi khi buồn nữa. Những kỹ thuật hít thở thực sự cứu cánh mình trong mùa thi vừa rồi.",
-      avatar: "https://i.pravatar.cc/150?u=minhanh",
-      rating: 5
-    },
-    {
-      name: "Tuấn Kiệt",
-      school: "ĐH Kinh Tế",
-      text: "Giảng viên cực kỳ tâm lý và nhiệt tình. Những buổi học offline là nơi mình cảm thấy an toàn nhất để chia sẻ những điều chưa bao giờ dám nói với ai.",
-      avatar: "https://i.pravatar.cc/150?u=tuankiet",
-      rating: 5
-    },
-    {
-      name: "Lan Hương",
-      school: "ĐH KHXH&NV",
-      text: "AI cá nhân hóa lộ trình học rất hay, giúp mình theo dõi được sự tiến bộ của bản thân qua từng tuần. Mình cảm thấy tự tin hơn hẳn trong giao tiếp.",
-      avatar: "https://i.pravatar.cc/150?u=lanhuong",
-      rating: 5
-    },
-    {
-      name: "Bảo Ngọc",
-      school: "ĐH Ngoại Thương",
-      text: "Nhịp Tâm An không chỉ là một trung tâm, mà là một gia đình nơi mình được là chính mình. Cảm ơn các thầy cô đã luôn đồng hành cùng em.",
-      avatar: "https://i.pravatar.cc/150?u=baongoc",
-      rating: 5
-    },
-    {
-      name: "Hoàng Nam",
-      school: "ĐH Y Dược",
-      text: "Áp lực ngành Y đôi khi làm mình nghẹt thở, nhưng khóa học quản lý cảm xúc đã giúp mình tìm lại được sự cân bằng và niềm đam mê với nghề.",
-      avatar: "https://i.pravatar.cc/150?u=hoangnam",
-      rating: 5
-    },
-    {
-      name: "Thùy Chi",
-      school: "ĐH Kiến Trúc",
-      text: "Không gian học tập ở đây rất nghệ thuật và chữa lành. Mình được học cách yêu bản thân và trân trọng những cảm xúc nhỏ bé nhất.",
-      avatar: "https://i.pravatar.cc/150?u=thuychi",
-      rating: 5
-    }
-  ];
-
-  const gallery = [
-    { url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800", title: "Workshop Kết Nối" },
-    { url: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&q=80&w=800", title: "Buổi Học Offline" },
-    { url: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=800", title: "Thảo Luận Nhóm" },
-    { url: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800", title: "Hoạt Động Trải Nghiệm" },
-    { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800", title: "Gắn Kết Thành Viên" },
-    { url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800", title: "Lễ Tốt Nghiệp Khóa K1" }
-  ];
-
-  return (
-    <PageWrapper>
-      <section className="relative z-10 px-6 py-32 max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-24"
-        >
-          <h1 className="text-6xl md:text-8xl font-black text-foreground mb-8 tracking-tighter">
-            Học viên <span className="text-primary">nói gì?</span>
-          </h1>
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={{ width: 120 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="h-3 bg-primary mx-auto rounded-full mb-12"
-          ></motion.div>
-          <p className="text-xl md:text-2xl text-muted-foreground font-bold max-w-3xl mx-auto">
-            Hành trình thấu hiểu cảm xúc của hàng ngàn sinh viên đã bắt đầu từ đây. Hãy cùng lắng nghe những chia sẻ chân thực nhất.
-          </p>
-        </motion.div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-32">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="liquid-glass p-10 rounded-[3rem] border-2 border-primary/10 hover:border-primary/40 transition-all shadow-xl relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-6 opacity-10">
-                <Star size={80} fill="currentColor" className="text-primary" />
-              </div>
-              <div className="flex items-center gap-4 mb-8">
-                <img src={t.avatar} alt={t.name} className="w-16 h-16 rounded-full border-2 border-primary shadow-lg" referrerPolicy="no-referrer" />
-                <div>
-                  <h4 className="font-black text-foreground text-xl">{t.name}</h4>
-                  <p className="text-primary text-sm font-bold uppercase tracking-widest">{t.school}</p>
-                </div>
-              </div>
-              <div className="flex gap-1 mb-6">
-                {[...Array(t.rating)].map((_, i) => (
-                  <Star key={i} size={16} fill="currentColor" className="text-primary" />
-                ))}
-              </div>
-              <p className="text-muted-foreground font-bold leading-relaxed italic">
-                "{t.text}"
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Course Gallery */}
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-black text-foreground mb-8 tracking-tighter">
-            Khoảnh khắc <span className="text-primary">đáng nhớ</span>
-          </h2>
-          <p className="text-xl text-muted-foreground font-bold max-w-3xl mx-auto">
-            Những hình ảnh sưu tầm từ các khóa học, workshop và hoạt động ngoại khóa của Nhịp Tâm An.
-          </p>
-        </div>
-
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-          {gallery.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className="relative group rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/30"
-            >
-              <img 
-                src={img.url} 
-                alt={img.title} 
-                className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700" 
-                referrerPolicy="no-referrer" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10">
-                <h4 className="text-white font-black text-2xl tracking-tighter">{img.title}</h4>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Call to Action */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="mt-32 liquid-glass p-16 rounded-[4rem] border-4 border-primary/20 text-center shadow-2xl"
-        >
-          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-8 tracking-tighter">
-            Bạn đã sẵn sàng để trở thành <br /> <span className="text-primary">một phần của gia đình Nhịp Tâm An?</span>
-          </h2>
-          <Link 
-            to="/khoahoc"
-            className="inline-block bg-primary text-white px-14 py-6 rounded-full text-xl font-black shadow-2xl hover:shadow-primary/50 transition-all"
-          >
-            Đăng ký học ngay
-          </Link>
-        </motion.div>
-      </section>
-    </PageWrapper>
-  );
-};
 
 export default function App() {
   return (
@@ -2175,7 +2007,6 @@ export default function App() {
               <Route path="/khoahoc" element={<CoursesPage />} />
               <Route path="/giangvien" element={<InstructorsPage />} />
               <Route path="/gioithieu" element={<AboutPage />} />
-              <Route path="/feedback" element={<FeedbackPage />} />
               <Route path="/hotline" element={<HotlinePage />} />
               <Route path="/test-cam-xuc" element={<EmotionTestPage />} />
               <Route path="/blog" element={<BlogPage />} />
